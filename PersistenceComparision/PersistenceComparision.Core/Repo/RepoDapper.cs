@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PersistenceComparision.Core.Repo
 {
-    class RepoDapper : IRepo
+    public class RepoDapper : IRepo
     {
         public void Create(TinyModel model)
         {

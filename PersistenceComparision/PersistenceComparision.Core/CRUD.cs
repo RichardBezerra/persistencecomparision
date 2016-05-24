@@ -17,7 +17,7 @@ namespace PersistenceComparision.Core
 
         public void Create(TinyModel model)
         {
-
+            this.Repo.Create(model);
         }
 
         public TinyModel Read(int id)

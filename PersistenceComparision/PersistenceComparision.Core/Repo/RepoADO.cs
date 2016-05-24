@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PersistenceComparision.Core.Repo
 {
-    class RepoADO : IRepo
+    public class RepoADO : IRepo
     {
         public void Create(TinyModel model)
         {
