@@ -22,17 +22,17 @@ namespace PersistenceComparision.Core
 
         public TinyModel Read(int id)
         {
-            return null;
+            return this.Repo.Read(id);
         }
 
         public void Update(TinyModel model)
         {
-
+            this.Repo.Update(model);
         }
 
         public void Delete(TinyModel model)
         {
-
+            this.Repo.Delete(model);
         }
     }
 }

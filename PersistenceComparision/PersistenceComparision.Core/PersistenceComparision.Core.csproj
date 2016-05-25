@@ -63,6 +63,11 @@
   <ItemGroup>
     <Compile Include="CRUD.cs" />
     <Compile Include="IRepo.cs" />
+    <Compile Include="Migrations\201605242358424_TinyModelTable.cs" />
+    <Compile Include="Migrations\201605242358424_TinyModelTable.Designer.cs">
+      <DependentUpon>201605242358424_TinyModelTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repo\EFContext.cs" />
     <Compile Include="Repo\RepoADO.cs" />
     <Compile Include="Repo\RepoDapper.cs" />
@@ -70,7 +75,11 @@
     <Compile Include="TinyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201605242358424_TinyModelTable.resx">
+      <DependentUpon>201605242358424_TinyModelTable.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

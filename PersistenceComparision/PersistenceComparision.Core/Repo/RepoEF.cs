@@ -27,6 +27,7 @@ namespace PersistenceComparision.Core.Repo
         {
             using (var context = new EFContext())
             {
+                context.TinyEntities.Attach(model);
                 context.TinyEntities.Remove(model);
                 context.SaveChanges();
             }
