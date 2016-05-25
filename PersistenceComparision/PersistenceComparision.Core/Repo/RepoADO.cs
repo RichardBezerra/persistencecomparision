@@ -11,65 +11,61 @@ namespace PersistenceComparision.Core.Repo
 {
     public class RepoADO : IRepo
     {
+        private string ConnString { get { return ConfigurationManager.ConnectionStrings["PersistenceComparision.Core.Repo.EFContext"].ConnectionString; } }
+
+        private void Execute(Func<MySqlConnection, object> action)
+        {
+            using (var sql = new MySqlConnection(this.ConnString))
+            {
+                try
+                {
+                    sql.Open();
+
+                    action(sql);
+                }
+                finally
+                {
+                    sql.Close();
+                }
+            }
+        }
+
         public void Create(TinyModel model)
         {
-            var sql = new MySqlConnection(ConfigurationManager.ConnectionStrings["PersistenceComparision.Core.Repo.EFContext"].ConnectionString);
-
-            try
+            Execute((MySqlConnection conn) =>
             {
-                sql.Open();
-
                 var command = new MySqlCommand("INSERT INTO TinyModels (descricao) VALUES (@d); " +
-                "SELECT id FROM TinyModels WHERE row_count() > 0 AND id = last_insert_id();", sql);
+                   "SELECT id FROM TinyModels WHERE row_count() > 0 AND id = last_insert_id();", conn);
+
                 command.Parameters.AddWithValue("@d", model.Descricao);
 
                 object r = command.ExecuteScalar();
 
                 model.Id = (int)r;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                sql.Close();
-            }
+
+                return model.Id;
+            });
         }
 
         public void Delete(TinyModel model)
         {
-            var sql = new MySqlConnection(ConfigurationManager.ConnectionStrings["PersistenceComparision.Core.Repo.EFContext"].ConnectionString);
-
-            try
+            Execute((MySqlConnection conn) =>
             {
-                sql.Open();
-
-                var command = new MySqlCommand("DELETE FROM TinyModels WHERE id = @id;", sql);
+                var command = new MySqlCommand("DELETE FROM TinyModels WHERE id = @id;", conn);
                 command.Parameters.AddWithValue("@id", model.Id);
                 command.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                sql.Close();
-            }
+
+                return null;
+            });
         }
 
         public TinyModel Read(int id)
         {
             TinyModel returnValue = null;
 
-            var sql = new MySqlConnection(ConfigurationManager.ConnectionStrings["PersistenceComparision.Core.Repo.EFContext"].ConnectionString);
-
-            try
+            Execute((MySqlConnection conn) =>
             {
-                sql.Open();
-
-                var command = new MySqlCommand("SELECT Id, Descricao FROM TinyModels WHERE id = @id;", sql);
+                var command = new MySqlCommand("SELECT Id, Descricao FROM TinyModels WHERE id = @id;", conn);
                 command.Parameters.AddWithValue("@id", id);
                 var reader = command.ExecuteReader();
 
@@ -79,40 +75,24 @@ namespace PersistenceComparision.Core.Repo
                     returnValue.Id = (int)reader["Id"];
                     returnValue.Descricao = (string)reader["Descricao"];
                 }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                sql.Close();
-            }
+
+                return returnValue;
+            });
 
             return returnValue;
         }
 
         public void Update(TinyModel model)
         {
-            var sql = new MySqlConnection(ConfigurationManager.ConnectionStrings["PersistenceComparision.Core.Repo.EFContext"].ConnectionString);
-
-            try
+            Execute((MySqlConnection conn) =>
             {
-                sql.Open();
-
-                var command = new MySqlCommand("UPDATE TinyModels SET descricao = @d WHERE id = @id;", sql);
+                var command = new MySqlCommand("UPDATE TinyModels SET descricao = @d WHERE id = @id;", conn);
                 command.Parameters.AddWithValue("@d", model.Descricao);
                 command.Parameters.AddWithValue("@id", model.Id);
                 command.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                sql.Close();
-            }
+
+                return null;
+            });
         }
     }
 }
