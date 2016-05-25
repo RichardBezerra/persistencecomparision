@@ -10,14 +10,25 @@ using System.Threading.Tasks;
 namespace PersistenceComparision.Core.Tests
 {
     [TestFixture]
-    class RepoEFTests : AssertionHelper
+    class RepoImplsTests : AssertionHelper
     {
-        [Test]
-        public void Create_sequentialy_1000_tiny_entities_using_RepoEF()
+        IRepo CreateImpl(string key)
         {
-            for (int i = 0; i < 1000; i++)
+            if (key.Equals("EF"))
+                return new Repo.RepoEF();
+
+            if (key.Equals("ADO"))
+                return new Repo.RepoADO();
+
+            return null;
+        }
+
+        [Test, Combinatorial]
+        public void Create_sequentialy_N_tiny_entities([Values(10)] int qtd, [Values("ADO","EF")] string impl)
+        {
+            for (int i = 0; i < qtd; i++)
             {
-                var service = new CRUD(new Repo.RepoEF());
+                var service = new CRUD(CreateImpl(impl));
                 TinyModel entity = null;
 
                 entity = new TinyModel { Descricao = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "_" + i };
@@ -27,12 +38,12 @@ namespace PersistenceComparision.Core.Tests
             //Expect<int>(entity.Id, Is.GreaterThan(0));
         }
 
-        [Test]
-        public void CRUD_sequentialy_1000_tiny_entities_using_RepoEF()
+        [Test, Combinatorial]
+        public void CRUD_sequentialy_N_tiny_entities([Values(10)] int qtd, [Values("ADO", "EF")] string impl)
         {
             for (int i = 0; i < 1000; i++)
             {
-                var service = new CRUD(new Repo.RepoEF());
+                var service = new CRUD(CreateImpl(impl));
                 TinyModel entity = null;
 
                 entity = new TinyModel { Descricao = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "_" + i };
@@ -50,12 +61,12 @@ namespace PersistenceComparision.Core.Tests
             //Expect<int>(entity.Id, Is.GreaterThan(0));
         }
 
-        [Test]
-        public void Create_parallely_1000_tiny_entities_using_RepoEF()
+        [Test, Combinatorial]
+        public void Create_parallely_N_tiny_entities([Values(10)] int qtd, [Values("ADO", "EF")] string impl)
         {
             Parallel.For(0, 1000, (int i) =>
             {
-                var service = new CRUD(new Repo.RepoEF());
+                var service = new CRUD(CreateImpl(impl));
                 TinyModel entity = null;
 
                 entity = new TinyModel { Descricao = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "_" + i };
@@ -65,12 +76,12 @@ namespace PersistenceComparision.Core.Tests
             //Expect<int>(entity.Id, Is.GreaterThan(0));
         }
 
-        [Test]
-        public void CRUD_parallely_1000_tiny_entities_using_RepoEF()
+        [Test, Combinatorial]
+        public void CRUD_parallely_N_tiny_entities([Values(10)] int qtd, [Values("ADO", "EF")] string impl)
         {
             Parallel.For(0, 1000, (int i) =>
             {
-                var service = new CRUD(new Repo.RepoEF());
+                var service = new CRUD(CreateImpl(impl));
                 TinyModel entity = null;
 
                 entity = new TinyModel { Descricao = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "_" + i};
