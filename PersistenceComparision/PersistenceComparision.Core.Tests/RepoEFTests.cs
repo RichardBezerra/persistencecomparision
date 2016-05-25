@@ -73,7 +73,7 @@ namespace PersistenceComparision.Core.Tests
                 var service = new CRUD(new Repo.RepoEF());
                 TinyModel entity = null;
 
-                entity = new TinyModel { Descricao = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "_" + i };
+                entity = new TinyModel { Descricao = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "_" + i};
                 service.Create(entity);
 
                 var r = service.Read(entity.Id);
