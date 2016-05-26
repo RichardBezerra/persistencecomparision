@@ -20,11 +20,14 @@ namespace PersistenceComparision.Core.Tests
             if (key.Equals("ADO"))
                 return new Repo.RepoADO();
 
+            if (key.Equals("ORMLite"))
+                return new Repo.RepoORMLite();
+
             return null;
         }
 
         [Test, Combinatorial]
-        public void Create_sequentialy_N_tiny_entities([Values(10)] int qtd, [Values("ADO","EF")] string impl)
+        public void Create_sequentialy_N_tiny_entities([Values(100)] int qtd, [Values("ADO","EF", "ORMLite")] string impl)
         {
             for (int i = 0; i < qtd; i++)
             {
@@ -39,7 +42,7 @@ namespace PersistenceComparision.Core.Tests
         }
 
         [Test, Combinatorial]
-        public void CRUD_sequentialy_N_tiny_entities([Values(10)] int qtd, [Values("ADO", "EF")] string impl)
+        public void CRUD_sequentialy_N_tiny_entities([Values(100)] int qtd, [Values("ADO", "EF", "ORMLite")] string impl)
         {
             for (int i = 0; i < 1000; i++)
             {
@@ -62,7 +65,7 @@ namespace PersistenceComparision.Core.Tests
         }
 
         [Test, Combinatorial]
-        public void Create_parallely_N_tiny_entities([Values(10)] int qtd, [Values("ADO", "EF")] string impl)
+        public void Create_parallely_N_tiny_entities([Values(100)] int qtd, [Values("ADO", "EF", "ORMLite")] string impl)
         {
             Parallel.For(0, 1000, (int i) =>
             {
@@ -77,7 +80,7 @@ namespace PersistenceComparision.Core.Tests
         }
 
         [Test, Combinatorial]
-        public void CRUD_parallely_N_tiny_entities([Values(10)] int qtd, [Values("ADO", "EF")] string impl)
+        public void CRUD_parallely_N_tiny_entities([Values(100)] int qtd, [Values("ADO", "EF", "ORMLite")] string impl)
         {
             Parallel.For(0, 1000, (int i) =>
             {
