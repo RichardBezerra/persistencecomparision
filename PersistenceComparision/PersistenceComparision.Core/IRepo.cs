@@ -10,6 +10,8 @@ namespace PersistenceComparision.Core
     {
         void Create(TinyModel model);
 
+        void Create(OneModel one);
+
         TinyModel Read(int id);
 
         void Update(TinyModel model);

@@ -1,11 +1,23 @@
 ﻿using ServiceStack.OrmLite;
 using System.Configuration;
+using System;
 
 namespace PersistenceComparision.Core.Repo
 {
     public class RepoORMLite : IRepo
     {
         private string ConnString { get { return ConfigurationManager.ConnectionStrings["PersistenceComparision.Core.Repo.EFContext"].ConnectionString; } }
+
+        public void Create(OneModel model)
+        {
+            var dbFactory = new OrmLiteConnectionFactory(ConnString, MySqlDialect.Provider);
+
+            using (var db = dbFactory.Open())
+            {
+                //if (db.CreateTableIfNotExists<TinyModel>())
+                model.Id = (int)db.Insert(model, selectIdentity: true);
+            }
+        }
 
         public void Create(TinyModel model)
         {

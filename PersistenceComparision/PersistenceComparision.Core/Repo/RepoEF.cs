@@ -14,6 +14,15 @@ namespace PersistenceComparision.Core.Repo
 
         }
 
+        public void Create(OneModel model)
+        {
+            using (var context = new EFContext())
+            {
+                context.Ones.Add(model);
+                context.SaveChanges();
+            }
+        }
+
         public void Create(TinyModel model)
         {
             using (var context = new EFContext())

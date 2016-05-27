@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 
 namespace PersistenceComparision.Core.Tests
 {
@@ -53,7 +54,19 @@ namespace PersistenceComparision.Core.Tests
         [Test, Combinatorial]
         public void CRUD_OneToManyModel([Values("ADO", "EF", "ORMLite")] string impl)
         {
-           
+            var service = new CRUD(CreateImpl(impl));
+
+            var many1 = new ManyModel { Many = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() };
+            var many2 = new ManyModel { Many = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() };
+            var one = new OneModel
+            {
+                One = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString(),
+                Many = new List<ManyModel>(new ManyModel[] { many1, many2 })
+            };
+
+            CreateImpl(impl).Create(one);
+
+            Expect(one.Id, Is.GreaterThan(0));
         }
     }
 }

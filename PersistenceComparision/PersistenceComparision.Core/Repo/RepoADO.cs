@@ -94,5 +94,10 @@ namespace PersistenceComparision.Core.Repo
                 return null;
             });
         }
+
+        public void Create(OneModel one)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
