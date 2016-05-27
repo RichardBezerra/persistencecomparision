@@ -3,7 +3,7 @@ namespace PersistenceComparision.Core.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CreatingTinyModelTable : DbMigration
+    public partial class TinyModelTable : DbMigration
     {
         public override void Up()
         {

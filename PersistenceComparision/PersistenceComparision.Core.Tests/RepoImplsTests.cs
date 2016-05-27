@@ -27,79 +27,28 @@ namespace PersistenceComparision.Core.Tests
         }
 
         [Test, Combinatorial]
-        public void Create_sequentialy_N_tiny_entities([Values(1000)] int qtd, [Values("ADO","EF", "ORMLite")] string impl)
+        public void CRUD_TinyModel([Values("ADO", "EF", "ORMLite")] string impl)
         {
-            for (int i = 0; i < qtd; i++)
-            {
-                var service = new CRUD(CreateImpl(impl));
-                TinyModel entity = null;
+            var service = new CRUD(CreateImpl(impl));
 
-                entity = new TinyModel { Descricao = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "_" + i };
-                service.Create(entity);
-            }
+            var entity = new TinyModel { Descricao = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() };
+            service.Create(entity);
 
-            //Expect<int>(entity.Id, Is.GreaterThan(0));
+            var r = service.Read(entity.Id);
+
+            r.Descricao += "_updated";
+
+            service.Update(r);
+
+            service.Delete(r);
+
+            Expect(entity.Id, Is.GreaterThan(0));
         }
 
         [Test, Combinatorial]
-        public void CRUD_sequentialy_N_tiny_entities([Values(1000)] int qtd, [Values("ADO", "EF", "ORMLite")] string impl)
+        public void CRUD_OneToManyModel([Values("ADO", "EF", "ORMLite")] string impl)
         {
-            for (int i = 0; i < qtd; i++)
-            {
-                var service = new CRUD(CreateImpl(impl));
-                TinyModel entity = null;
-
-                entity = new TinyModel { Descricao = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "_" + i };
-                service.Create(entity);
-
-                var r = service.Read(entity.Id);
-
-                r.Descricao += "_" + i;
-
-                service.Update(r);
-
-                service.Delete(r);
-            }
-
-            //Expect<int>(entity.Id, Is.GreaterThan(0));
-        }
-
-        [Test, Combinatorial]
-        public void Create_parallely_N_tiny_entities([Values(1000)] int qtd, [Values("ADO", "EF", "ORMLite")] string impl)
-        {
-            Parallel.For(0, qtd, (int i) =>
-            {
-                var service = new CRUD(CreateImpl(impl));
-                TinyModel entity = null;
-
-                entity = new TinyModel { Descricao = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "_" + i };
-                service.Create(entity);
-            });
-
-            //Expect<int>(entity.Id, Is.GreaterThan(0));
-        }
-
-        [Test, Combinatorial]
-        public void CRUD_parallely_N_tiny_entities([Values(1000)] int qtd, [Values("ADO", "EF", "ORMLite")] string impl)
-        {
-            Parallel.For(0, qtd, (int i) =>
-            {
-                var service = new CRUD(CreateImpl(impl));
-                TinyModel entity = null;
-
-                entity = new TinyModel { Descricao = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "_" + i};
-                service.Create(entity);
-
-                var r = service.Read(entity.Id);
-
-                r.Descricao += "_" + i;
-
-                service.Update(r);
-
-                service.Delete(r);
-            });
-
-            //Expect<int>(entity.Id, Is.GreaterThan(0));
+           
         }
     }
 }
