@@ -81,9 +81,9 @@
     <Compile Include="CRUD.cs" />
     <Compile Include="IRepo.cs" />
     <Compile Include="ManyModel.cs" />
-    <Compile Include="Migrations\201605271729047_CreateTinuModelTable.cs" />
-    <Compile Include="Migrations\201605271729047_CreateTinuModelTable.Designer.cs">
-      <DependentUpon>201605271729047_CreateTinuModelTable.cs</DependentUpon>
+    <Compile Include="Migrations\201605271851568_CreatingTables.cs" />
+    <Compile Include="Migrations\201605271851568_CreatingTables.Designer.cs">
+      <DependentUpon>201605271851568_CreatingTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OneModel.cs" />
@@ -99,8 +99,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605271729047_CreateTinuModelTable.resx">
-      <DependentUpon>201605271729047_CreateTinuModelTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605271851568_CreatingTables.resx">
+      <DependentUpon>201605271851568_CreatingTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

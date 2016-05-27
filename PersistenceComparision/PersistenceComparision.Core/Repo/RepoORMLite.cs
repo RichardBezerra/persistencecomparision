@@ -14,8 +14,9 @@ namespace PersistenceComparision.Core.Repo
 
             using (var db = dbFactory.Open())
             {
-                //if (db.CreateTableIfNotExists<TinyModel>())
                 model.Id = (int)db.Insert(model, selectIdentity: true);
+                model.Many.ForEach((m) => { m.OneModelId = model.Id; });
+                db.InsertAll(model.Many);
             }
         }
 
@@ -25,8 +26,7 @@ namespace PersistenceComparision.Core.Repo
 
             using (var db = dbFactory.Open())
             {
-                //if (db.CreateTableIfNotExists<TinyModel>())
-                    model.Id = (int)db.Insert(model, selectIdentity: true);
+                model.Id = (int)db.Insert(model, selectIdentity: true);
             }
         }
 

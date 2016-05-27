@@ -7,13 +7,13 @@ namespace PersistenceComparision.Core.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class CreateTinuModelTable : IMigrationMetadata
+    public sealed partial class CreatingTables : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateTinuModelTable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreatingTables));
         
         string IMigrationMetadata.Id
         {
-            get { return "201605271729047_CreateTinuModelTable"; }
+            get { return "201605271851568_CreatingTables"; }
         }
         
         string IMigrationMetadata.Source

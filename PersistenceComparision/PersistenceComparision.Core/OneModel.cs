@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ServiceStack.DataAnnotations;
+using System.Collections.Generic;
 
 namespace PersistenceComparision.Core
 {
@@ -13,6 +14,7 @@ namespace PersistenceComparision.Core
 
         public string One { get; set; }
 
-        public virtual ICollection<ManyModel> Many { get; set; }
+        [Reference]
+        public virtual List<ManyModel> Many { get; set; }
     }
 }
