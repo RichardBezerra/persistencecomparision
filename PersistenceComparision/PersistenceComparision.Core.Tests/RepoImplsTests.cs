@@ -1,11 +1,5 @@
 ﻿using NUnit.Framework;
-using NUnit.Framework.Compatibility;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PersistenceComparision.Core.Tests
 {
@@ -41,6 +35,17 @@ namespace PersistenceComparision.Core.Tests
             service.Update(r);
 
             service.Delete(r);
+
+            Expect(entity.Id, Is.GreaterThan(0));
+        }
+
+        [Test, Combinatorial]
+        public void Create_TinyModel([Values("ADO", "EF", "ORMLite")] string impl)
+        {
+            var service = new CRUD(CreateImpl(impl));
+            
+            var entity = new TinyModel { Descricao = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() };
+            service.Create(entity);
 
             Expect(entity.Id, Is.GreaterThan(0));
         }
