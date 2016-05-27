@@ -3,12 +3,12 @@ namespace PersistenceComparision.Core.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class TinyModelTable : DbMigration
+    public partial class CreatingTinyModelTable : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.TinyModels",
+                "dbo.TinyModel",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -20,7 +20,7 @@ namespace PersistenceComparision.Core.Migrations
         
         public override void Down()
         {
-            DropTable("dbo.TinyModels");
+            DropTable("dbo.TinyModel");
         }
     }
 }

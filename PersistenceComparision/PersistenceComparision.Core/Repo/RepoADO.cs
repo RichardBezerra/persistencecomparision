@@ -34,8 +34,8 @@ namespace PersistenceComparision.Core.Repo
         {
             Execute((MySqlConnection conn) =>
             {
-                var command = new MySqlCommand("INSERT INTO TinyModels (descricao) VALUES (@d); " +
-                   "SELECT id FROM TinyModels WHERE row_count() > 0 AND id = last_insert_id();", conn);
+                var command = new MySqlCommand("INSERT INTO TinyModel (descricao) VALUES (@d); " +
+                   "SELECT id FROM TinyModel WHERE row_count() > 0 AND id = last_insert_id();", conn);
 
                 command.Parameters.AddWithValue("@d", model.Descricao);
 
@@ -51,7 +51,7 @@ namespace PersistenceComparision.Core.Repo
         {
             Execute((MySqlConnection conn) =>
             {
-                var command = new MySqlCommand("DELETE FROM TinyModels WHERE id = @id;", conn);
+                var command = new MySqlCommand("DELETE FROM TinyModel WHERE id = @id;", conn);
                 command.Parameters.AddWithValue("@id", model.Id);
                 command.ExecuteNonQuery();
 
@@ -65,7 +65,7 @@ namespace PersistenceComparision.Core.Repo
 
             Execute((MySqlConnection conn) =>
             {
-                var command = new MySqlCommand("SELECT Id, Descricao FROM TinyModels WHERE id = @id;", conn);
+                var command = new MySqlCommand("SELECT Id, Descricao FROM TinyModel WHERE id = @id;", conn);
                 command.Parameters.AddWithValue("@id", id);
                 var reader = command.ExecuteReader();
 
@@ -86,7 +86,7 @@ namespace PersistenceComparision.Core.Repo
         {
             Execute((MySqlConnection conn) =>
             {
-                var command = new MySqlCommand("UPDATE TinyModels SET descricao = @d WHERE id = @id;", conn);
+                var command = new MySqlCommand("UPDATE TinyModel SET descricao = @d WHERE id = @id;", conn);
                 command.Parameters.AddWithValue("@d", model.Descricao);
                 command.Parameters.AddWithValue("@id", model.Id);
                 command.ExecuteNonQuery();

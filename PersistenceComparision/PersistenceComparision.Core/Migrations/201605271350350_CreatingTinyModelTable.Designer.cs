@@ -7,13 +7,13 @@ namespace PersistenceComparision.Core.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class TinyModelTable : IMigrationMetadata
+    public sealed partial class CreatingTinyModelTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(TinyModelTable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreatingTinyModelTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "201605242358424_TinyModelTable"; }
+            get { return "201605271350350_CreatingTinyModelTable"; }
         }
         
         string IMigrationMetadata.Source
