@@ -72,8 +72,8 @@ namespace PersistenceComparision.Core.Repo
                 while (reader.Read())
                 {
                     returnValue = new TinyModel();
-                    returnValue.Id = (int)reader["Id"];
-                    returnValue.Descricao = (string)reader["Descricao"];
+                    returnValue.Id = reader.GetInt32("Id");
+                    returnValue.Descricao = reader.GetString("Descricao");
                 }
 
                 return returnValue;
@@ -108,7 +108,7 @@ namespace PersistenceComparision.Core.Repo
 
                 one.Id = (int)r;
 
-                one.Many.ForEach((m) => 
+                one.Many.ForEach((m) =>
                 {
                     var commandMany = new MySqlCommand("INSERT INTO ManyModel (Many, OneModelId) VALUES (@m, @oid); " +
                    "SELECT id FROM OneModel WHERE row_count() > 0 AND id = last_insert_id();", conn);
@@ -125,7 +125,47 @@ namespace PersistenceComparision.Core.Repo
 
         public OneModel ReadOneModel(int id)
         {
-            throw new NotImplementedException();
+            OneModel returnValue = null;
+
+            Execute((MySqlConnection conn) =>
+            {
+                var commandOne = new MySqlCommand("SELECT Id, One FROM OneModel WHERE id = @id;", conn);
+                commandOne.Parameters.AddWithValue("@id", id);
+                var readerOne = commandOne.ExecuteReader();
+
+                while (readerOne.Read())
+                {
+                    returnValue = new OneModel();
+                    returnValue.Id = readerOne.GetInt32("Id");
+                    returnValue.One = readerOne.GetString("One");
+                }
+
+                return returnValue;
+            });
+
+            if (returnValue != null)
+            {
+                Execute((MySqlConnection conn) =>
+                {
+                    var commandMany = new MySqlCommand("SELECT Id, Many, OneModelId FROM ManyModel WHERE OneModelId = @id;", conn);
+                    commandMany.Parameters.AddWithValue("@id", id);
+                    var readerMany = commandMany.ExecuteReader();
+
+                    while (readerMany.Read())
+                    {
+                        returnValue.Many.Add(new ManyModel()
+                        {
+                            Id = readerMany.GetInt32("Id"),
+                            Many = readerMany.GetString("Many"),
+                            OneModelId = readerMany.GetInt32("OneModelId")
+                        });
+                    }
+
+                    return returnValue;
+                });
+            }
+
+            return returnValue;
         }
     }
 }
