@@ -42,7 +42,12 @@ namespace PersistenceComparision.Core.Repo
             }
         }
 
-        public TinyModel Read(int id)
+        public OneModel ReadOneModel(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TinyModel ReadTinyModel(int id)
         {
             using (var context = new EFContext())
             {

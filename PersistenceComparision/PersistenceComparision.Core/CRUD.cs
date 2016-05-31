@@ -20,9 +20,14 @@ namespace PersistenceComparision.Core
             this.Repo.Create(model);
         }
 
-        public TinyModel Read(int id)
+        public TinyModel ReadTiny(int id)
         {
-            return this.Repo.Read(id);
+            return this.Repo.ReadTinyModel(id);
+        }
+
+        public OneModel ReadOne(int id)
+        {
+            return this.Repo.ReadOneModel(id);
         }
 
         public void Update(TinyModel model)

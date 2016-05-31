@@ -40,7 +40,12 @@ namespace PersistenceComparision.Core.Repo
             }
         }
 
-        public TinyModel Read(int id)
+        public OneModel ReadOneModel(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TinyModel ReadTinyModel(int id)
         {
             var dbFactory = new OrmLiteConnectionFactory(ConnString, MySqlDialect.Provider);
 
