@@ -23,6 +23,35 @@ namespace PersistenceComparision.Core.Tests
         }
 
         [Test, Combinatorial]
+        public void Create_TinyModel([Values("ADO", "EF", "ORMLite")] string impl)
+        {
+            var service = new CRUD(CreateImpl(impl));
+
+            var entity = new TinyModel { Descricao = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() };
+            service.Create(entity);
+
+            Expect(entity.Id, Is.GreaterThan(0));
+        }
+
+        [Test, Combinatorial]
+        public void Create_OneToManyModel([Values("ADO", "EF", "ORMLite")] string impl)
+        {
+            var service = new CRUD(CreateImpl(impl));
+
+            var many1 = new ManyModel { Many = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() };
+            var many2 = new ManyModel { Many = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() };
+            var one = new OneModel
+            {
+                One = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString(),
+                Many = new List<ManyModel>(new ManyModel[] { many1, many2 })
+            };
+
+            CreateImpl(impl).Create(one);
+
+            Expect(one.Id, Is.GreaterThan(0));
+        }
+
+        [Test, Combinatorial]
         public void CRUD_TinyModel([Values("ADO", "EF", "ORMLite")] string impl)
         {
             var service = new CRUD(CreateImpl(impl));
@@ -39,17 +68,6 @@ namespace PersistenceComparision.Core.Tests
             service.Delete(r);
 
             Expect(r.Id, Is.GreaterThan(0).And.EqualTo(entity.Id));
-        }
-
-        [Test, Combinatorial]
-        public void Create_TinyModel([Values("ADO", "EF", "ORMLite")] string impl)
-        {
-            var service = new CRUD(CreateImpl(impl));
-            
-            var entity = new TinyModel { Descricao = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() };
-            service.Create(entity);
-
-            Expect(entity.Id, Is.GreaterThan(0));
         }
 
         [Test, Combinatorial]
@@ -79,24 +97,6 @@ namespace PersistenceComparision.Core.Tests
             service.Delete(r);
 
             Expect(r.Id, Is.GreaterThan(0).And.EqualTo(one.Id));
-        }
-
-        [Test, Combinatorial]
-        public void Create_OneToManyModel([Values("ADO", "EF", "ORMLite")] string impl)
-        {
-            var service = new CRUD(CreateImpl(impl));
-
-            var many1 = new ManyModel { Many = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() };
-            var many2 = new ManyModel { Many = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() };
-            var one = new OneModel
-            {
-                One = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString(),
-                Many = new List<ManyModel>(new ManyModel[] { many1, many2 })
-            };
-
-            CreateImpl(impl).Create(one);
-
-            Expect(one.Id, Is.GreaterThan(0));
         }
     }
 }
