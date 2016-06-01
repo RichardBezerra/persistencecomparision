@@ -30,6 +30,11 @@ namespace PersistenceComparision.Core.Repo
             }
         }
 
+        public void Delete(OneModel model)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Delete(TinyModel model)
         {
             var dbFactory = new OrmLiteConnectionFactory(ConnString, MySqlDialect.Provider);
@@ -66,7 +71,14 @@ namespace PersistenceComparision.Core.Repo
 
         public void Update(OneModel model)
         {
-            throw new NotImplementedException();
+            var dbFactory = new OrmLiteConnectionFactory(ConnString, MySqlDialect.Provider);
+
+            using (var db = dbFactory.Open())
+            {
+                db.Update(model);
+
+                db.UpdateAll(model.Many);
+            }
         }
 
         public void Update(TinyModel model)
@@ -75,7 +87,7 @@ namespace PersistenceComparision.Core.Repo
 
             using (var db = dbFactory.Open())
             {
-                db.Update<TinyModel>(model);
+                db.Update(model);
             }
         }
     }

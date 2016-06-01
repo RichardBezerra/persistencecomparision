@@ -44,5 +44,10 @@ namespace PersistenceComparision.Core
         {
             this.Repo.Delete(model);
         }
+
+        public void Delete(OneModel model)
+        {
+            this.Repo.Delete(model);
+        }
     }
 }

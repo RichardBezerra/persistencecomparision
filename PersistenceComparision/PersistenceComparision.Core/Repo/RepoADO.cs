@@ -187,5 +187,24 @@ namespace PersistenceComparision.Core.Repo
                 return model;
             });
         }
+
+        public void Delete(OneModel model)
+        {
+            Execute((MySqlConnection conn) =>
+            {
+                model.Many.ForEach(m =>
+                {
+                    var commandMany = new MySqlCommand("DELETE FROM ManyModel WHERE id = @id;", conn);
+                    commandMany.Parameters.AddWithValue("@id", m.Id);
+                    commandMany.ExecuteNonQuery();
+                });
+
+                var commandOne = new MySqlCommand("DELETE FROM OneModel WHERE id = @id;", conn);
+                commandOne.Parameters.AddWithValue("@id", model.Id);
+                commandOne.ExecuteNonQuery();
+
+                return null;
+            });
+        }
     }
 }

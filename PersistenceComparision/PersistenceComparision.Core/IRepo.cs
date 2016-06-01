@@ -15,5 +15,7 @@
         void Update(OneModel model);
 
         void Delete(TinyModel model);
+
+        void Delete(OneModel model);
     }
 }

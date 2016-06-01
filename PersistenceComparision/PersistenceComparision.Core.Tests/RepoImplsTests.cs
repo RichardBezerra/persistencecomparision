@@ -73,7 +73,7 @@ namespace PersistenceComparision.Core.Tests
 
             service.Update(r);
 
-            //service.Delete(r);
+            service.Delete(r);
 
             Expect(r.Id, Is.GreaterThan(0).And.EqualTo(one.Id));
 
