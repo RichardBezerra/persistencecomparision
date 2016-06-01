@@ -4,11 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace PersistenceComparision.Core
 {
     [Table("TinyModel")]
-    public class TinyModel
+    public class TinyModel : ModelBase
     {
-        [AutoIncrement]
-        public int Id { get; set; }
-
         public string Descricao { get; set; }
     }
 }
