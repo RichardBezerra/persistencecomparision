@@ -1,6 +1,7 @@
 ﻿using ServiceStack.OrmLite;
 using System.Configuration;
 using System;
+using System.Linq;
 
 namespace PersistenceComparision.Core.Repo
 {
@@ -32,7 +33,14 @@ namespace PersistenceComparision.Core.Repo
 
         public void Delete(OneModel model)
         {
-            throw new NotImplementedException();
+            var dbFactory = new OrmLiteConnectionFactory(ConnString, MySqlDialect.Provider);
+
+            using (var db = dbFactory.Open())
+            {
+                db.DeleteByIds<ManyModel>(model.Many.Select(m => m.Id).ToList());
+
+                db.DeleteById<OneModel>(model.Id);
+            }
         }
 
         public void Delete(TinyModel model)
