@@ -16,8 +16,11 @@ namespace PersistenceComparision.Core.Repo
             using (var db = dbFactory.Open())
             {
                 model.Id = (int)db.Insert(model, selectIdentity: true);
-                model.Many.ForEach((m) => { m.OneModelId = model.Id; });
-                db.InsertAll(model.Many);
+                model.Many.ForEach((m) => 
+                {
+                    m.OneModelId = model.Id;
+                    m.Id = (int)db.Insert(m, selectIdentity: true);
+                });
             }
         }
 

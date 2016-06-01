@@ -42,6 +42,32 @@ namespace PersistenceComparision.Core.Repo
             });
         }
 
+        public void Create(OneModel one)
+        {
+            Execute((MySqlConnection conn) =>
+            {
+                var commandOne = new MySqlCommand("INSERT INTO OneModel (One) VALUES (@o); " +
+                   "SELECT id FROM OneModel WHERE row_count() > 0 AND id = last_insert_id();", conn);
+
+                commandOne.Parameters.AddWithValue("@o", one.One);
+
+                one.Id = (int)commandOne.ExecuteScalar();
+
+                one.Many.ForEach((m) =>
+                {
+                    var commandMany = new MySqlCommand("INSERT INTO ManyModel (Many, OneModelId) VALUES (@m, @oid); " +
+                   "SELECT id FROM ManyModel WHERE row_count() > 0 AND id = last_insert_id();", conn);
+
+                    commandMany.Parameters.AddWithValue("@m", m.Many);
+                    commandMany.Parameters.AddWithValue("@oid", one.Id);
+
+                    m.Id =  (int)commandMany.ExecuteScalar();
+                });
+
+                return one.Id;
+            });
+        }
+        
         public void Delete(TinyModel model)
         {
             Execute((MySqlConnection conn) =>
@@ -89,35 +115,7 @@ namespace PersistenceComparision.Core.Repo
                 return null;
             });
         }
-
-        public void Create(OneModel one)
-        {
-            Execute((MySqlConnection conn) =>
-            {
-                var commandOne = new MySqlCommand("INSERT INTO OneModel (One) VALUES (@o); " +
-                   "SELECT id FROM OneModel WHERE row_count() > 0 AND id = last_insert_id();", conn);
-
-                commandOne.Parameters.AddWithValue("@o", one.One);
-
-                object r = commandOne.ExecuteScalar();
-
-                one.Id = (int)r;
-
-                one.Many.ForEach((m) =>
-                {
-                    var commandMany = new MySqlCommand("INSERT INTO ManyModel (Many, OneModelId) VALUES (@m, @oid); " +
-                   "SELECT id FROM OneModel WHERE row_count() > 0 AND id = last_insert_id();", conn);
-
-                    commandMany.Parameters.AddWithValue("@m", m.Many);
-                    commandMany.Parameters.AddWithValue("@oid", one.Id);
-
-                    commandMany.ExecuteScalar();
-                });
-
-                return one.Id;
-            });
-        }
-
+        
         public OneModel ReadOneModel(int id)
         {
             OneModel returnValue = null;

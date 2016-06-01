@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace PersistenceComparision.Core.Tests
@@ -67,6 +68,8 @@ namespace PersistenceComparision.Core.Tests
             CreateImpl(impl).Create(one);
 
             var r = service.ReadOne(one.Id);
+
+            Expect(r.Many.Select(m => m.Id), EquivalentTo(one.Many.Select(m => m.Id)));
 
             r.One += "_updated";
             r.Many.ForEach((m) => { m.Many += "_update"; });
