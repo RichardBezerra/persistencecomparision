@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PersistenceComparision.Core
+﻿namespace PersistenceComparision.Core
 {
     public interface IRepo
     {
@@ -17,6 +11,8 @@ namespace PersistenceComparision.Core
         OneModel ReadOneModel(int id);
 
         void Update(TinyModel model);
+
+        void Update(OneModel model);
 
         void Delete(TinyModel model);
     }

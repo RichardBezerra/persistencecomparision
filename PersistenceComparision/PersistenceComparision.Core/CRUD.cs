@@ -35,6 +35,11 @@ namespace PersistenceComparision.Core
             this.Repo.Update(model);
         }
 
+        public void Update(OneModel model)
+        {
+            this.Repo.Update(model);
+        }
+
         public void Delete(TinyModel model)
         {
             this.Repo.Delete(model);

@@ -64,6 +64,11 @@ namespace PersistenceComparision.Core.Repo
             }
         }
 
+        public void Update(OneModel model)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(TinyModel model)
         {
             var dbFactory = new OrmLiteConnectionFactory(ConnString, MySqlDialect.Provider);

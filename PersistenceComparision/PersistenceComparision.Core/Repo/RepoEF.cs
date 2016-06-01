@@ -58,6 +58,11 @@ namespace PersistenceComparision.Core.Repo
             }
         }
 
+        public void Update(OneModel model)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(TinyModel model)
         {
             using (var context = new EFContext())

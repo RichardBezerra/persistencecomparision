@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Configuration;
-using MySql.Data.MySqlClient;
 
 namespace PersistenceComparision.Core.Repo
 {
@@ -166,6 +161,31 @@ namespace PersistenceComparision.Core.Repo
             }
 
             return returnValue;
+        }
+
+        public void Update(OneModel model)
+        {
+            Execute((MySqlConnection conn) =>
+            {
+                var commandOne = new MySqlCommand("UPDATE OneModel SET One = @o WHERE Id = @id;", conn);
+
+                commandOne.Parameters.AddWithValue("@o", model.One);
+                commandOne.Parameters.AddWithValue("@id", model.Id);
+
+                object r = commandOne.ExecuteScalar();
+
+                model.Many.ForEach((m) =>
+                {
+                    var commandMany = new MySqlCommand("UPDATE ManyModel SET Many = @m WHERE Id = @id;", conn);
+
+                    commandMany.Parameters.AddWithValue("@m", m.Many);
+                    commandMany.Parameters.AddWithValue("@id", m.Id);
+
+                    commandMany.ExecuteScalar();
+                });
+
+                return model;
+            });
         }
     }
 }
