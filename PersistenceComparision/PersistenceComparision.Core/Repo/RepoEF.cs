@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PersistenceComparision.Core.Repo
 {
@@ -60,7 +57,11 @@ namespace PersistenceComparision.Core.Repo
 
         public void Update(OneModel model)
         {
-            throw new NotImplementedException();
+            using (var context = new EFContext())
+            {
+                context.Ones.Attach(model);
+                context.SaveChanges();
+            }
         }
 
         public void Update(TinyModel model)
