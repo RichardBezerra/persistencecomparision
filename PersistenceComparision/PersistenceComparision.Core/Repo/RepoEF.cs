@@ -44,7 +44,10 @@ namespace PersistenceComparision.Core.Repo
 
         public OneModel ReadOneModel(int id)
         {
-            throw new NotImplementedException();
+            using (var context = new EFContext())
+            {
+                return context.Ones.Include((m) => m.Many).Single(o => o.Id == id);
+            }
         }
 
         public TinyModel ReadTinyModel(int id)

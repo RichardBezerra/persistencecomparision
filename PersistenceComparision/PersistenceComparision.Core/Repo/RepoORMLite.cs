@@ -42,7 +42,16 @@ namespace PersistenceComparision.Core.Repo
 
         public OneModel ReadOneModel(int id)
         {
-            throw new NotImplementedException();
+            var dbFactory = new OrmLiteConnectionFactory(ConnString, MySqlDialect.Provider);
+
+            using (var db = dbFactory.Open())
+            {
+                var one = db.SingleById<OneModel>(id);
+
+                one.Many.AddRange(db.SelectLazy<ManyModel>("OneModelId = @omi", new { omi = id }));
+
+                return one;
+            }
         }
 
         public TinyModel ReadTinyModel(int id)

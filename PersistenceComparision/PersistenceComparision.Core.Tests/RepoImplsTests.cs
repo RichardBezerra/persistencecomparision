@@ -37,7 +37,7 @@ namespace PersistenceComparision.Core.Tests
 
             service.Delete(r);
 
-            Expect(r.Id, Is.GreaterThan(0));
+            Expect(r.Id, Is.GreaterThan(0).And.EqualTo(entity.Id));
         }
 
         [Test, Combinatorial]
@@ -68,14 +68,16 @@ namespace PersistenceComparision.Core.Tests
 
             var r = service.ReadOne(one.Id);
 
-            //r.One += "_updated";
-            //r.Many.ForEach((m) => { m.Many += "_update"; });
+            r.One += "_updated";
+            r.Many.ForEach((m) => { m.Many += "_update"; });
 
-            //service.Update(r);
+            service.Update(r);
 
             //service.Delete(r);
 
             Expect(r.Id, Is.GreaterThan(0).And.EqualTo(one.Id));
+
+            Expect(r.Many.Count, Is.EqualTo(one.Many.Count));
         }
 
         [Test, Combinatorial]
