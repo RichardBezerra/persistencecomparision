@@ -31,7 +31,12 @@ namespace PersistenceComparision.Core.Repo
 
         public void Delete(OneModel model)
         {
-            throw new NotImplementedException();
+            using (var context = new EFContext())
+            {
+                context.Ones.Attach(model);
+                context.Ones.Remove(model);
+                context.SaveChanges();
+            }
         }
 
         public void Delete(TinyModel model)

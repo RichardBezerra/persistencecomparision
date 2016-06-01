@@ -76,8 +76,6 @@ namespace PersistenceComparision.Core.Tests
             service.Delete(r);
 
             Expect(r.Id, Is.GreaterThan(0).And.EqualTo(one.Id));
-
-            Expect(r.Many.Count, Is.EqualTo(one.Many.Count));
         }
 
         [Test, Combinatorial]
