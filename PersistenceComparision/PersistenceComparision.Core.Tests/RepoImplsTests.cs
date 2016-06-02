@@ -10,30 +10,26 @@ namespace PersistenceComparision.Core.Tests
     {
         private static Repo.Repo<TinyModel> CreateTinyModelImpl(string impl)
         {
-            Repo.Repo<TinyModel> repo = null;
-
             if (impl.Equals("EF"))
-                repo = new Repo.RepoTinyEF();
+                return new Repo.RepoTinyEF();
+            else if (impl.Equals("ORMLite"))
+                return new Repo.RepoTinyORMLite();
             else
-                repo = new Repo.RepoTinyORMLite();
-
-            return repo;
+                return new Repo.RepoTinyADO();
         }
 
         private static Repo.Repo<OneModel> CreateOneModelImpl(string impl)
         {
-            Repo.Repo<OneModel> repo = null;
-
             if (impl.Equals("EF"))
-                repo = new Repo.RepoOneToManyEF();
+                return new Repo.RepoOneToManyEF();
+            else if (impl.Equals("ORMLite"))
+                return new Repo.RepoOneToManyORMLite();
             else
-                repo = new Repo.RepoOneToManyORMLite();
-
-            return repo;
+                return new Repo.RepoOneToManyADO();
         }
 
         [Test, Combinatorial]
-        public void Create_TinyModel([Values("EF", "ORMLite")] string impl)
+        public void Create_TinyModel([Values("EF", "ORMLite", "ADO")] string impl)
         {
             var entity = new TinyModel { Descricao = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() };
 
@@ -43,7 +39,7 @@ namespace PersistenceComparision.Core.Tests
         }
 
         [Test, Combinatorial]
-        public void Create_OneToManyModel([Values("EF", "ORMLite")] string impl)
+        public void Create_OneToManyModel([Values("EF", "ORMLite", "ADO")] string impl)
         {
             var many1 = new ManyModel { Many = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() };
             var many2 = new ManyModel { Many = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() };
@@ -59,7 +55,7 @@ namespace PersistenceComparision.Core.Tests
         }
 
         [Test, Combinatorial]
-        public void CRUD_TinyModel([Values("EF", "ORMLite")] string impl)
+        public void CRUD_TinyModel([Values("EF", "ORMLite", "ADO")] string impl)
         {
             var repo = CreateTinyModelImpl(impl);
 
@@ -78,7 +74,7 @@ namespace PersistenceComparision.Core.Tests
         }
 
         [Test, Combinatorial]
-        public void CRUD_OneToManyModel([Values("EF", "ORMLite")] string impl)
+        public void CRUD_OneToManyModel([Values("EF", "ORMLite", "ADO")] string impl)
         {
             var repo = CreateOneModelImpl(impl);
 
@@ -96,8 +92,8 @@ namespace PersistenceComparision.Core.Tests
 
             Expect(r.Many.Select(m => m.Id), EquivalentTo(one.Many.Select(m => m.Id)));
 
-            r.One += "_updated";
-            r.Many.ForEach((m) => { m.Many += "_update"; });
+            r.One += "_updated_" + impl;
+            r.Many.ForEach((m) => { m.Many += "_update_" + impl; });
 
             repo.Update(r);
 
