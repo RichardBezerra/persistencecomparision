@@ -136,27 +136,7 @@ namespace PersistenceComparision.Core.Repo
                 return returnValue;
             });
 
-            if (returnValue != null)
-            {
-                Execute((MySqlConnection conn) =>
-                {
-                    var commandMany = new MySqlCommand("SELECT Id, Many, OneModelId FROM ManyModel WHERE OneModelId = @id;", conn);
-                    commandMany.Parameters.AddWithValue("@id", id);
-                    var readerMany = commandMany.ExecuteReader();
-
-                    while (readerMany.Read())
-                    {
-                        returnValue.Many.Add(new ManyModel()
-                        {
-                            Id = readerMany.GetInt32("Id"),
-                            Many = readerMany.GetString("Many"),
-                            OneModelId = readerMany.GetInt32("OneModelId")
-                        });
-                    }
-
-                    return returnValue;
-                });
-            }
+            
 
             return returnValue;
         }

@@ -20,7 +20,7 @@ namespace PersistenceComparision.Core.Repo
             }
         }
 
-        public void Create(TinyModel model)
+        public void Create(OneModel model)
         {
             using (var context = new EFContext())
             {
@@ -39,7 +39,7 @@ namespace PersistenceComparision.Core.Repo
             }
         }
 
-        public void Delete(TinyModel model)
+        public void Delete(OneModel model)
         {
             using (var context = new EFContext())
             {
@@ -57,7 +57,7 @@ namespace PersistenceComparision.Core.Repo
             }
         }
 
-        public TinyModel ReadTinyModel(int id)
+        public OneModel ReadTinyModel(int id)
         {
             using (var context = new EFContext())
             {
@@ -74,7 +74,7 @@ namespace PersistenceComparision.Core.Repo
             }
         }
 
-        public void Update(TinyModel model)
+        public void Update(OneModel model)
         {
             using (var context = new EFContext())
             {

@@ -15,12 +15,12 @@ namespace PersistenceComparision.Core
             this.Repo = repo;
         }
 
-        public void Create(TinyModel model)
+        public void Create(OneModel model)
         {
             this.Repo.Create(model);
         }
 
-        public TinyModel ReadTiny(int id)
+        public OneModel ReadTiny(int id)
         {
             return this.Repo.ReadTinyModel(id);
         }
@@ -30,7 +30,7 @@ namespace PersistenceComparision.Core
             return this.Repo.ReadOneModel(id);
         }
 
-        public void Update(TinyModel model)
+        public void Update(OneModel model)
         {
             this.Repo.Update(model);
         }
@@ -40,7 +40,7 @@ namespace PersistenceComparision.Core
             this.Repo.Update(model);
         }
 
-        public void Delete(TinyModel model)
+        public void Delete(OneModel model)
         {
             this.Repo.Delete(model);
         }

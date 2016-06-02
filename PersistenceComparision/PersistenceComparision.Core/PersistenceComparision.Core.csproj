@@ -78,8 +78,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CRUD.cs" />
-    <Compile Include="IRepo.cs" />
     <Compile Include="ManyModel.cs" />
     <Compile Include="Migrations\201605271851568_CreatingTables.cs" />
     <Compile Include="Migrations\201605271851568_CreatingTables.Designer.cs">
@@ -88,15 +86,15 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelBase.cs" />
     <Compile Include="OneModel.cs" />
-    <Compile Include="RepoBaseEF.cs" />
+    <Compile Include="Repo\RepoBaseEF.cs" />
     <Compile Include="Repo\EFContext.cs" />
     <Compile Include="Repo\Repo.cs" />
-    <Compile Include="Repo\RepoADO.cs" />
+    <Compile Include="Repo\RepoBaseADO.cs" />
     <Compile Include="Repo\RepoBaseORMLite.cs" />
+    <Compile Include="Repo\RepoOneToManyADO.cs" />
     <Compile Include="Repo\RepoOneToManyEF.cs" />
     <Compile Include="Repo\RepoOneToManyORMLite.cs" />
-    <Compile Include="Repo\RepoORMLite.cs" />
-    <Compile Include="Repo\RepoEF.cs" />
+    <Compile Include="Repo\RepoTinyADO.cs" />
     <Compile Include="Repo\RepoTinyEF.cs" />
     <Compile Include="Repo\RepoTinyORMLite.cs" />
     <Compile Include="TinyModel.cs" />

@@ -24,7 +24,7 @@ namespace PersistenceComparision.Core.Repo
             }
         }
 
-        public void Create(TinyModel model)
+        public void Create(OneModel model)
         {
             var dbFactory = new OrmLiteConnectionFactory(ConnString, MySqlDialect.Provider);
 
@@ -46,13 +46,13 @@ namespace PersistenceComparision.Core.Repo
             }
         }
 
-        public void Delete(TinyModel model)
+        public void Delete(OneModel model)
         {
             var dbFactory = new OrmLiteConnectionFactory(ConnString, MySqlDialect.Provider);
 
             using (var db = dbFactory.Open())
             {
-                db.DeleteById<TinyModel>(model.Id);
+                db.DeleteById<OneModel>(model.Id);
             }
         }
 
@@ -70,13 +70,13 @@ namespace PersistenceComparision.Core.Repo
             }
         }
 
-        public TinyModel ReadTinyModel(int id)
+        public OneModel ReadTinyModel(int id)
         {
             var dbFactory = new OrmLiteConnectionFactory(ConnString, MySqlDialect.Provider);
 
             using (var db = dbFactory.Open())
             {
-                return db.SingleById<TinyModel>(id);
+                return db.SingleById<OneModel>(id);
             }
         }
 
@@ -92,7 +92,7 @@ namespace PersistenceComparision.Core.Repo
             }
         }
 
-        public void Update(TinyModel model)
+        public void Update(OneModel model)
         {
             var dbFactory = new OrmLiteConnectionFactory(ConnString, MySqlDialect.Provider);
 

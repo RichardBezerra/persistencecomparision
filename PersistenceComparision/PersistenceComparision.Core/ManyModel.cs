@@ -1,13 +1,7 @@
-﻿using ServiceStack.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace PersistenceComparision.Core
+﻿namespace PersistenceComparision.Core
 {
-    public class ManyModel
+    public class ManyModel : ModelBase
     {
-        [AutoIncrement]
-        public int Id { get; set; }
-
         public string Many { get; set; }
         
         public int OneModelId { get; set; }
