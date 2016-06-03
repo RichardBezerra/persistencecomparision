@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PersistenceComparision.Core.Repo
+namespace PersistenceComparision.Core
 {
     public interface Repo<T> where T : class
     {

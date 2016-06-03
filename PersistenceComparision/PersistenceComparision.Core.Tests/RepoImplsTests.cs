@@ -8,7 +8,7 @@ namespace PersistenceComparision.Core.Tests
     [TestFixture]
     class RepoImplsTests : AssertionHelper
     {
-        private static Repo.Repo<TinyModel> CreateTinyModelImpl(string impl)
+        private static Repo<TinyModel> CreateTinyModelImpl(string impl)
         {
             if (impl.Equals("EF"))
                 return new Repo.RepoTinyEF();
@@ -18,7 +18,7 @@ namespace PersistenceComparision.Core.Tests
                 return new Repo.RepoTinyADO();
         }
 
-        private static Repo.Repo<OneModel> CreateOneModelImpl(string impl)
+        private static Repo<OneModel> CreateOneModelImpl(string impl)
         {
             if (impl.Equals("EF"))
                 return new Repo.RepoOneToManyEF();

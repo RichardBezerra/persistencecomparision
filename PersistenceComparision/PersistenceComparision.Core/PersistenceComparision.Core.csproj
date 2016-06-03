@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LargeModel.cs" />
     <Compile Include="ManyModel.cs" />
     <Compile Include="Migrations\201605271851568_CreatingTables.cs" />
     <Compile Include="Migrations\201605271851568_CreatingTables.Designer.cs">
@@ -86,9 +87,9 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelBase.cs" />
     <Compile Include="OneModel.cs" />
+    <Compile Include="Repo.cs" />
     <Compile Include="Repo\RepoBaseEF.cs" />
     <Compile Include="Repo\EFContext.cs" />
-    <Compile Include="Repo\Repo.cs" />
     <Compile Include="Repo\RepoBaseADO.cs" />
     <Compile Include="Repo\RepoBaseORMLite.cs" />
     <Compile Include="Repo\RepoOneToManyADO.cs" />
