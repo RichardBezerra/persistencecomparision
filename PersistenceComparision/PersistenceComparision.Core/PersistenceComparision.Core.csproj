@@ -84,6 +84,10 @@
     <Compile Include="Migrations\201605271851568_CreatingTables.Designer.cs">
       <DependentUpon>201605271851568_CreatingTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606032235196_LargeModelTable.cs" />
+    <Compile Include="Migrations\201606032235196_LargeModelTable.Designer.cs">
+      <DependentUpon>201606032235196_LargeModelTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelBase.cs" />
     <Compile Include="OneModel.cs" />
@@ -92,6 +96,9 @@
     <Compile Include="Repo\EFContext.cs" />
     <Compile Include="Repo\RepoBaseADO.cs" />
     <Compile Include="Repo\RepoBaseORMLite.cs" />
+    <Compile Include="Repo\RepoLargeADO.cs" />
+    <Compile Include="Repo\RepoLargeEF.cs" />
+    <Compile Include="Repo\RepoLargeORMLite.cs" />
     <Compile Include="Repo\RepoOneToManyADO.cs" />
     <Compile Include="Repo\RepoOneToManyEF.cs" />
     <Compile Include="Repo\RepoOneToManyORMLite.cs" />
@@ -108,6 +115,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201605271851568_CreatingTables.resx">
       <DependentUpon>201605271851568_CreatingTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606032235196_LargeModelTable.resx">
+      <DependentUpon>201606032235196_LargeModelTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

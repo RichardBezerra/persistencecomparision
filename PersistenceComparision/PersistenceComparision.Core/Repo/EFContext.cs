@@ -9,6 +9,8 @@ namespace PersistenceComparision.Core.Repo
 
         public DbSet<OneModel> Ones { get; set; }
 
+        public DbSet<LargeModel> Larges { get; set; }
+
         public EFContext():base()
         {
             
