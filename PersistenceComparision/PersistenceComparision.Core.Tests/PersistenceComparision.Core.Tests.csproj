@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PersistLargeModelTests.cs" />
     <Compile Include="PersistOneToManyModelTests.cs" />
     <Compile Include="PersistTinyModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
