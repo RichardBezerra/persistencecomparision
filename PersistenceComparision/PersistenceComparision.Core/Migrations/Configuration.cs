@@ -5,7 +5,7 @@ namespace PersistenceComparision.Core.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<PersistenceComparision.Core.Repo.EFContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<PersistenceComparision.Core.Repo.EF.EFContext>
     {
         public Configuration()
         {
@@ -13,7 +13,7 @@ namespace PersistenceComparision.Core.Migrations
             SetSqlGenerator("MySql.Data.MySqlClient", new MySql.Data.Entity.MySqlMigrationSqlGenerator());
         }
 
-        protected override void Seed(PersistenceComparision.Core.Repo.EFContext context)
+        protected override void Seed(PersistenceComparision.Core.Repo.EF.EFContext context)
         {
             //  This method will be called after migrating to the latest version.
 

@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 
-namespace PersistenceComparision.Core.Repo
+namespace PersistenceComparision.Core.Repo.ADO
 {
     public abstract class RepoBaseADO<T> : Repo<T> where T : ModelBase
     {
-        private string ConnString { get { return ConfigurationManager.ConnectionStrings["PersistenceComparision.Core.Repo.EFContext"].ConnectionString; } }
+        private string ConnString { get { return ConfigurationManager.ConnectionStrings["PersistenceComparision.Core.Repo.EF.EFContext"].ConnectionString; } }
 
         protected void Execute(Func<MySqlConnection, object> action)
         {

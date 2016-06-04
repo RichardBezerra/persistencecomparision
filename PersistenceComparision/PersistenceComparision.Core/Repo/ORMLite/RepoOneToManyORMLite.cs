@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using ServiceStack.OrmLite;
 
-namespace PersistenceComparision.Core.Repo
+namespace PersistenceComparision.Core.Repo.ORMLite
 {
     public class RepoOneToManyORMLite : RepoBaseORMLite<OneModel>
     {

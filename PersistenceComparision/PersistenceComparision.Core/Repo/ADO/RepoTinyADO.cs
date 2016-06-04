@@ -1,6 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 
-namespace PersistenceComparision.Core.Repo
+namespace PersistenceComparision.Core.Repo.ADO
 {
     public class RepoTinyADO : RepoBaseADO<TinyModel>
     {

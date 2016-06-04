@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 
-namespace PersistenceComparision.Core.Repo
+namespace PersistenceComparision.Core.Repo.ADO
 {
     public class RepoOneToManyADO : RepoBaseADO<OneModel>
     {

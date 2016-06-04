@@ -46,31 +46,31 @@ namespace PersistenceComparision.Core.Tests
         private static Repo<TinyModel> CreateTinyModelImpl(string impl)
         {
             if (impl.Equals("EF"))
-                return new Repo.RepoTinyEF();
+                return new Repo.EF.RepoTinyEF();
             else if (impl.Equals("ORMLite"))
-                return new Repo.RepoTinyORMLite();
+                return new Repo.ORMLite.RepoTinyORMLite();
             else
-                return new Repo.RepoTinyADO();
+                return new Repo.ADO.RepoTinyADO();
         }
 
         private static Repo<OneModel> CreateOneModelImpl(string impl)
         {
             if (impl.Equals("EF"))
-                return new Repo.RepoOneToManyEF();
+                return new Repo.EF.RepoOneToManyEF();
             else if (impl.Equals("ORMLite"))
-                return new Repo.RepoOneToManyORMLite();
+                return new Repo.ORMLite.RepoOneToManyORMLite();
             else
-                return new Repo.RepoOneToManyADO();
+                return new Repo.ADO.RepoOneToManyADO();
         }
 
         private static Repo<LargeModel> CreateLargeModelImpl(string impl)
         {
             if (impl.Equals("EF"))
-                return new Repo.RepoLargeEF();
+                return new Repo.EF.RepoLargeEF();
             else if (impl.Equals("ORMLite"))
-                return new Repo.RepoLargeORMLite();
+                return new Repo.ORMLite.RepoLargeORMLite();
             else
-                return new Repo.RepoLargeADO();
+                return new Repo.ADO.RepoLargeADO();
         }
 
         [Test, Combinatorial]

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Configuration;
 
-namespace PersistenceComparision.Core.Repo
+namespace PersistenceComparision.Core.Repo.ORMLite
 {
     public class RepoBaseORMLite<T> : Repo<T> where T : ModelBase
     {
-        private string ConnString { get { return ConfigurationManager.ConnectionStrings["PersistenceComparision.Core.Repo.EFContext"].ConnectionString; } }
+        private string ConnString { get { return ConfigurationManager.ConnectionStrings["PersistenceComparision.Core.Repo.EF.EFContext"].ConnectionString; } }
 
         protected OrmLiteConnectionFactory dbFactory = null;
 

@@ -2,7 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 
-namespace PersistenceComparision.Core.Repo
+namespace PersistenceComparision.Core.Repo.EF
 {
     public class RepoBaseEF<T> : Repo<T> where T : class
     {
