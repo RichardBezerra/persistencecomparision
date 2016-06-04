@@ -40,7 +40,11 @@ namespace PersistenceComparision.Core.Repo
 
         protected override MySqlCommand GenerateDeleteCommand(LargeModel model)
         {
-            throw new NotImplementedException();
+            var command = new MySqlCommand("DELETE FROM LargeModel WHERE id = @id;");
+
+            command.Parameters.AddWithValue("@id", model.Id);
+
+            return command;
         }
 
         protected override MySqlCommand GenerateInsertCommand(LargeModel model)
@@ -95,12 +99,83 @@ namespace PersistenceComparision.Core.Repo
 
         protected override MySqlCommand GenerateSelectByIdCommand(int id)
         {
-            throw new NotImplementedException();
+            string fields = "Large,";
+            fields += "LargeDescription2,";
+            fields += "LargeDescription3,";
+            fields += "LargeDescription4,";
+            fields += "LargeDescription5,";
+            fields += "LargeDescription6,";
+            fields += "LargeDescription7,";
+            fields += "LargeDescription8,";
+            fields += "LargeDescription9,";
+            fields += "LargeDescription10,";
+            fields += "LargeDescription11,";
+            fields += "LargeDescription12,";
+            fields += "LargeDescription13,";
+            fields += "LargeDescription14,";
+            fields += "LargeDescription15,";
+            fields += "LargeDescription16,";
+            fields += "LargeDescription17,";
+            fields += "LargeDescription18,";
+            fields += "LargeDescription19,";
+            fields += "LargeDescription20";
+
+            var command = new MySqlCommand("SELECT Id, " + fields + "  FROM LargeModel WHERE id = @id;");
+
+            command.Parameters.AddWithValue("@id", id);
+
+            return command;
         }
 
         protected override MySqlCommand GenerateUpdateCommand(LargeModel model)
         {
-            throw new NotImplementedException();
+            string fields = "Large=@d,";
+            fields += "LargeDescription2=@d2,";
+            fields += "LargeDescription3=@d3,";
+            fields += "LargeDescription4=@d4,";
+            fields += "LargeDescription5=@d5,";
+            fields += "LargeDescription6=@d6,";
+            fields += "LargeDescription7=@d7,";
+            fields += "LargeDescription8=@d8,";
+            fields += "LargeDescription9=@d9,";
+            fields += "LargeDescription10=@d10,";
+            fields += "LargeDescription11=@d11,";
+            fields += "LargeDescription12=@d12,";
+            fields += "LargeDescription13=@d13,";
+            fields += "LargeDescription14=@d14,";
+            fields += "LargeDescription15=@d15,";
+            fields += "LargeDescription16=@d16,";
+            fields += "LargeDescription17=@d17,";
+            fields += "LargeDescription18=@d18,";
+            fields += "LargeDescription19=@d19,";
+            fields += "LargeDescription20=@d20";
+
+            var command = new MySqlCommand("UPDATE LargeModel SET " + fields + " WHERE id = @id;");
+
+            command.Parameters.AddWithValue("@id", model.Id);
+
+            command.Parameters.AddWithValue("@d", model.Large);
+            command.Parameters.AddWithValue("@d2", model.LargeDescription2);
+            command.Parameters.AddWithValue("@d3", model.LargeDescription3);
+            command.Parameters.AddWithValue("@d4", model.LargeDescription4);
+            command.Parameters.AddWithValue("@d5", model.LargeDescription5);
+            command.Parameters.AddWithValue("@d6", model.LargeDescription6);
+            command.Parameters.AddWithValue("@d7", model.LargeDescription7);
+            command.Parameters.AddWithValue("@d8", model.LargeDescription8);
+            command.Parameters.AddWithValue("@d9", model.LargeDescription9);
+            command.Parameters.AddWithValue("@d10", model.LargeDescription10);
+            command.Parameters.AddWithValue("@d11", model.LargeDescription11);
+            command.Parameters.AddWithValue("@d12", model.LargeDescription12);
+            command.Parameters.AddWithValue("@d13", model.LargeDescription13);
+            command.Parameters.AddWithValue("@d14", model.LargeDescription14);
+            command.Parameters.AddWithValue("@d15", model.LargeDescription15);
+            command.Parameters.AddWithValue("@d16", model.LargeDescription16);
+            command.Parameters.AddWithValue("@d17", model.LargeDescription17);
+            command.Parameters.AddWithValue("@d18", model.LargeDescription18);
+            command.Parameters.AddWithValue("@d19", model.LargeDescription19);
+            command.Parameters.AddWithValue("@d20", model.LargeDescription20);
+
+            return command;
         }
     }
 }

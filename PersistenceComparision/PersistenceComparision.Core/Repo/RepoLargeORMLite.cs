@@ -1,6 +1,6 @@
 ﻿namespace PersistenceComparision.Core.Repo
 {
-    class RepoLargeORMLite : RepoBaseORMLite<LargeModel>
+    public class RepoLargeORMLite : RepoBaseORMLite<LargeModel>
     {
     }
 }

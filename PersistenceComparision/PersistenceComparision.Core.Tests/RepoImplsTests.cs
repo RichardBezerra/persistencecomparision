@@ -9,6 +9,40 @@ namespace PersistenceComparision.Core.Tests
     [TestFixture]
     class RepoImplsTests : AssertionHelper
     {
+        private static LargeModel CreateLargeModel()
+        {
+            var sb = new StringBuilder();
+
+            for (int i = 1; i <= 10; i++)
+            {
+                char t = (char)(64 + i);
+                sb.Append(t, i);
+                sb.Append(" ");
+            }
+
+            var entity = new LargeModel { Large = sb.ToString() };
+            entity.LargeDescription2 = entity.Large + entity.Large;
+            entity.LargeDescription3 = entity.Large + entity.LargeDescription2;
+            entity.LargeDescription4 = entity.LargeDescription2 + entity.LargeDescription3;
+            entity.LargeDescription5 = entity.LargeDescription3 + entity.LargeDescription4;
+            entity.LargeDescription6 = entity.LargeDescription4 + entity.LargeDescription5;
+            entity.LargeDescription7 = entity.LargeDescription5 + entity.LargeDescription6;
+            entity.LargeDescription8 = entity.LargeDescription6 + entity.LargeDescription7;
+            entity.LargeDescription9 = entity.LargeDescription7 + entity.LargeDescription8;
+            entity.LargeDescription10 = entity.LargeDescription8 + entity.LargeDescription9;
+            entity.LargeDescription11 = entity.LargeDescription9 + entity.LargeDescription10;
+            entity.LargeDescription12 = entity.LargeDescription10 + entity.LargeDescription11;
+            entity.LargeDescription13 = entity.LargeDescription11 + entity.LargeDescription12;
+            entity.LargeDescription14 = entity.LargeDescription12 + entity.LargeDescription13;
+            entity.LargeDescription15 = entity.LargeDescription13 + entity.LargeDescription14;
+            entity.LargeDescription16 = entity.LargeDescription14 + entity.LargeDescription15;
+            entity.LargeDescription17 = entity.LargeDescription15 + entity.LargeDescription16;
+            entity.LargeDescription18 = entity.LargeDescription16 + entity.LargeDescription17;
+            entity.LargeDescription19 = entity.LargeDescription17 + entity.LargeDescription18;
+            entity.LargeDescription20 = entity.LargeDescription18 + entity.LargeDescription19;
+            return entity;
+        }
+
         private static Repo<TinyModel> CreateTinyModelImpl(string impl)
         {
             if (impl.Equals("EF"))
@@ -33,12 +67,10 @@ namespace PersistenceComparision.Core.Tests
         {
             if (impl.Equals("EF"))
                 return new Repo.RepoLargeEF();
-            //else if (impl.Equals("ORMLite"))
-            //    return new Repo.RepoOneToManyORMLite();
+            else if (impl.Equals("ORMLite"))
+                return new Repo.RepoLargeORMLite();
             else
                 return new Repo.RepoLargeADO();
-
-            return null;
         }
 
         [Test, Combinatorial]
@@ -70,41 +102,13 @@ namespace PersistenceComparision.Core.Tests
         [Test, Combinatorial]
         public void Create_LargeModel([Values("EF", "ORMLite", "ADO")] string impl)
         {
-            var sb = new StringBuilder();
-
-            for (int i = 1; i <= 10; i++)
-            {
-                char t = (char)(64 + i);
-                sb.Append(t, i);
-                sb.Append(" ");
-            }
-
-            var entity = new LargeModel { Large = sb.ToString() };
-            entity.LargeDescription2 = entity.Large + entity.Large;
-            entity.LargeDescription3 = entity.Large + entity.LargeDescription2;
-            entity.LargeDescription4 = entity.LargeDescription2 + entity.LargeDescription3;
-            entity.LargeDescription5 = entity.LargeDescription3 + entity.LargeDescription4;
-            entity.LargeDescription6 = entity.LargeDescription4 + entity.LargeDescription5;
-            entity.LargeDescription7 = entity.LargeDescription5 + entity.LargeDescription6;
-            entity.LargeDescription8 = entity.LargeDescription6 + entity.LargeDescription7;
-            entity.LargeDescription9 = entity.LargeDescription7 + entity.LargeDescription8;
-            entity.LargeDescription10 = entity.LargeDescription8 + entity.LargeDescription9;
-            entity.LargeDescription11 = entity.LargeDescription9 + entity.LargeDescription10;
-            entity.LargeDescription12 = entity.LargeDescription10 + entity.LargeDescription11;
-            entity.LargeDescription13 = entity.LargeDescription11 + entity.LargeDescription12;
-            entity.LargeDescription14 = entity.LargeDescription12 + entity.LargeDescription13;
-            entity.LargeDescription15 = entity.LargeDescription13 + entity.LargeDescription14;
-            entity.LargeDescription16 = entity.LargeDescription14 + entity.LargeDescription15;
-            entity.LargeDescription17 = entity.LargeDescription15 + entity.LargeDescription16;
-            entity.LargeDescription18 = entity.LargeDescription16 + entity.LargeDescription17;
-            entity.LargeDescription19 = entity.LargeDescription17 + entity.LargeDescription18;
-            entity.LargeDescription20 = entity.LargeDescription18 + entity.LargeDescription19;
+            LargeModel entity = CreateLargeModel();
 
             CreateLargeModelImpl(impl).Create(entity);
 
             Expect(entity.Id, Is.GreaterThan(0));
         }
-
+        
         [Test, Combinatorial]
         public void CRUD_TinyModel([Values("EF", "ORMLite", "ADO")] string impl)
         {
@@ -152,5 +156,45 @@ namespace PersistenceComparision.Core.Tests
 
             Expect(r.Id, Is.GreaterThan(0).And.EqualTo(one.Id));
         }
+
+        [Test, Combinatorial]
+        public void CRUD_LargeModel([Values("EF", "ORMLite", "ADO")] string impl)
+        {
+            var repo = CreateLargeModelImpl(impl);
+
+            var largeModel = CreateLargeModel();
+
+            repo.Create(largeModel);
+
+            var r = repo.FindById(largeModel.Id);
+
+            r.Large += "_updated_" + impl;
+            r.LargeDescription2 += "_updated_" + impl;
+            r.LargeDescription3 += "_updated_" + impl;
+            r.LargeDescription4 += "_updated_" + impl;
+            r.LargeDescription5 += "_updated_" + impl;
+            r.LargeDescription6 += "_updated_" + impl;
+            r.LargeDescription7 += "_updated_" + impl;
+            r.LargeDescription8 += "_updated_" + impl;
+            r.LargeDescription9 += "_updated_" + impl;
+            r.LargeDescription10 += "_updated_" + impl;
+            r.LargeDescription11 += "_updated_" + impl;
+            r.LargeDescription12 += "_updated_" + impl;
+            r.LargeDescription13 += "_updated_" + impl;
+            r.LargeDescription14 += "_updated_" + impl;
+            r.LargeDescription15 += "_updated_" + impl;
+            r.LargeDescription16 += "_updated_" + impl;
+            r.LargeDescription17 += "_updated_" + impl;
+            r.LargeDescription18 += "_updated_" + impl;
+            r.LargeDescription19 += "_updated_" + impl;
+            r.LargeDescription20 += "_updated_" + impl;
+
+            repo.Update(r);
+
+            repo.Delete(r);
+
+            Expect(r.Id, Is.GreaterThan(0).And.EqualTo(largeModel.Id));
+        }
+
     }
 }
