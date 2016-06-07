@@ -7,7 +7,7 @@ namespace PersistenceComparision.Core.Tests
     public class PersistLargeModelTests : AssertionHelper
     {
         [Test, Combinatorial]
-        public void Create_sequentialy_N_large_entities([Values(100)] int qtd, [Values("ADO", "EF", "ORMLite")] string impl)
+        public void Create_sequentialy_N_large_entities([Values(1,10,30)] int qtd, [Values("ADO", "EF", "ORMLite")] string impl)
         {
             var testImpls = new RepoImplsTests();
 
@@ -16,7 +16,7 @@ namespace PersistenceComparision.Core.Tests
         }
 
         [Test, Combinatorial]
-        public void CRUD_sequentialy_N_large_entities([Values(100)] int qtd, [Values("ADO", "EF", "ORMLite")] string impl)
+        public void CRUD_sequentialy_N_large_entities([Values(1,10,30)] int qtd, [Values("ADO", "EF", "ORMLite")] string impl)
         {
             var testImpls = new RepoImplsTests();
 
@@ -25,7 +25,7 @@ namespace PersistenceComparision.Core.Tests
         }
 
         [Test, Combinatorial]
-        public void Create_parallely_N_large_entities([Values(100)] int qtd, [Values("ADO", "EF", "ORMLite")] string impl)
+        public void Create_parallely_N_large_entities([Values(1,10,30)] int qtd, [Values("ADO", "EF", "ORMLite")] string impl)
         {
             Parallel.For(0, qtd, (int i) =>
             {
@@ -36,9 +36,9 @@ namespace PersistenceComparision.Core.Tests
         }
 
         [Test, Combinatorial]
-        public void CRUD_parallely_N_large_entities([Values(100)] int qtd, [Values("ADO", "EF", "ORMLite")] string impl)
+        public void CRUD_parallely_N_large_entities([Values(1,10,30)] int qtd, [Values("ADO", "EF", "ORMLite")] string impl)
         {
-            Parallel.For(0, qtd, (int i) =>
+            Parallel.For(0, qtd, new ParallelOptions { MaxDegreeOfParallelism = 5 }, (int i) =>
             {
                 var testImpls = new RepoImplsTests();
 

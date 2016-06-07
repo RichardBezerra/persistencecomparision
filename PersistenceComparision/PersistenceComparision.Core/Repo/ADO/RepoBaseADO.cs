@@ -41,7 +41,7 @@ namespace PersistenceComparision.Core.Repo.ADO
             Execute((MySqlConnection conn) =>
             {   
                 var command = GenerateInsertCommand(model);
-
+                
                 command.Connection = conn;
 
                 object r = command.ExecuteScalar();
